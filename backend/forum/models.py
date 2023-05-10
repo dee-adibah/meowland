@@ -20,10 +20,10 @@ class Topic(models.Model):
         return self.topic
 
 class Thread(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='threads', null=True)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='threads')
     thread = models.CharField(max_length=90)
     content = models.TextField()
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator_thread', null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator_thread')
     created = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):

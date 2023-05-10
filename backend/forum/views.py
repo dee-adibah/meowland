@@ -54,7 +54,7 @@ class ThreadCreate(generics.CreateAPIView):
 class ThreadUpdate(generics.UpdateAPIView):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class ThreadDelete(generics.DestroyAPIView):
     queryset = Thread.objects.all()

@@ -68,15 +68,15 @@ class TopicSerializer(serializers.ModelSerializer):
         )
 
 class ThreadSerializer(serializers.ModelSerializer):
-    creator_id = serializers.SerializerMethodField()
+    #creator_id = serializers.SerializerMethodField()
     #creator = serializers.CharField()
     topic = serializers.PrimaryKeyRelatedField(queryset=Topic.objects.all(),required=False,write_only=False)
     creator = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),required=False,write_only=False)
     created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
     
-    def creator_id(self):
-        creator_id = serializers.IntegerField()
-        return creator_id 
+    # def creator_id(self):
+    #     creator_id = serializers.IntegerField()
+    #     return creator_id 
 
     class Meta:
         model = Thread
@@ -88,15 +88,15 @@ class ThreadSerializer(serializers.ModelSerializer):
             'creator',
             'created',
         )
-        depth=1
+        depth=2
     
 
 class PostSerializer(serializers.ModelSerializer):
-    creator_id = serializers.SerializerMethodField('creator_id')
+    # creator_id = serializers.SerializerMethodField('creator_id')
     
-    def creator_id(self):
-        creator_id = serializers.IntegerField()
-        return creator_id
+    # def creator_id(self):
+    #     creator_id = serializers.IntegerField()
+    #     return creator_id
     
     #creator = serializers.CharField()
     creator = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),required=False,write_only=False)

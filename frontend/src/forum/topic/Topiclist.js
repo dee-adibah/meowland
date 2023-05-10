@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Segment, Grid, Icon} from 'semantic-ui-react';
+import Richeditor from '../richeditor/Richeditor';
 
 const Topiclist = () => {
   const [topics, setTopics] = useState([]);
@@ -20,6 +21,7 @@ const Topiclist = () => {
 
   return (
     <div>
+      <Richeditor />
       {topics.map((topic) => (
         <Segment vertical key={topic.id}>
           <Grid textAlign='left' padded='horizontally'>

@@ -26,7 +26,7 @@ const Postlist = () => {
       {posts.map((post) => (
         <Segment vertical key={post.id}>
           <Grid textAlign='left' padded='horizontally'>
-            <Grid.Column width={4}>
+            <Grid.Column width={12}>
               <Grid.Row>
                 <div className='post-row'>
                   <div className='post-column'>

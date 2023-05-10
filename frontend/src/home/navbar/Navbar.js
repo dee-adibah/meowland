@@ -13,15 +13,9 @@ const Navbar = () => {
           <Icon name='paw' size='large' /> MeowLand
         </div>
         <div className='pml__navbar-links_container'>
-          <p>
-            <a href='/'>Home</a>
-          </p>
-          <p>
-            <a href='/forum'>Forum</a>
-          </p>
-          <p>
-            <a href='/breed'>Breeds</a>
-          </p>
+          <a href='/'>Home</a>
+          <a href='/forum'>Forum</a>
+          <a href='/breed'>Breeds</a>
         </div>
       </div>
       <div className='pml__navbar-sign'>

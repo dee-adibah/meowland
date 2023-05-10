@@ -36,7 +36,7 @@ const Header = () => {
           </div>
 
           <div className='pml__header-image'>
-            <img src={catparty} />
+            <img src={catparty} alt='catsgroup' />
           </div>
         </div>
       </div>

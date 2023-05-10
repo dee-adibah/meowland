@@ -43,8 +43,8 @@ class ThreadListByTopic(generics.ListAPIView):
     serializer_class = ThreadSerializer
     permission_classes = [AllowAny]
     def get_queryset(self):
-        topic_title = self.kwargs['topic_title']
-        queryset = Thread.objects.filter(topic_title__topic_title=topic_title)
+        topic = self.kwargs['topic']
+        queryset = Thread.objects.filter(topic__topic=topic)
         return queryset
 
 class ThreadCreate(generics.CreateAPIView):
@@ -70,8 +70,8 @@ class PostListByThread(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [AllowAny]
     def get_queryset(self):
-        thread_title_id = self.kwargs['thread_title_id']
-        queryset = Post.objects.filter(thread_title__id=thread_title_id)
+        thread_id = self.kwargs['thread_id']
+        queryset = Post.objects.filter(thread__id=thread_id)
         return queryset
 
 class PostCreate(generics.CreateAPIView):

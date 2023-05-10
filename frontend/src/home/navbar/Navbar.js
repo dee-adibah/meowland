@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {RiMenu3Line, RiCloseLine} from 'react-icons/ri';
 import './navbar.css';
-import PetsIcon from '@mui/icons-material/Pets';
+import {Icon} from 'semantic-ui-react';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -10,7 +10,7 @@ const Navbar = () => {
     <div className='pml__navbar'>
       <div className='pml__navbar-links'>
         <div className='pml__navbar-title'>
-          <PetsIcon /> MeowLand
+          <Icon name='paw' size='large' /> MeowLand
         </div>
         <div className='pml__navbar-links_container'>
           <p>

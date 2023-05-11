@@ -56,9 +56,9 @@ const Postlist = () => {
     fetch(`http://localhost:8000/api/posts/delete/${id}`, {
       method: 'DELETE',
     })
-      .then((res) => res.json())
-      .then((deletedPost) => {
-        setPosts(posts.filter((post) => post.id !== id));
+      .then((res) => {
+        res.json();
+        alert('Post deleted successfully');
         navigate(0);
       })
       .catch((err) => console.error({error: err}));

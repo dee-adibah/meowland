@@ -68,6 +68,8 @@ class TopicSerializer(serializers.ModelSerializer):
         )
 
 class ThreadSerializer(serializers.ModelSerializer):
+    created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    
     class Meta:
         model = Thread
         fields = (
@@ -79,10 +81,12 @@ class ThreadSerializer(serializers.ModelSerializer):
             'created',
         )
         #fields = '__all__'
-        #depth = 1
+        depth = 1
     
 
 class PostSerializer(serializers.ModelSerializer):
+    created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    
     class Meta:
         model = Post
         fields = (

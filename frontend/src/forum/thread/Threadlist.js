@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,10 +57,11 @@ const Threadlist = () => {
             <Grid item>
               <IconButton
                 component={Link}
-                to={`/thread/${thread.id}`}
+                // to={`/thread/${thread.id}`}
                 className={classes.iconButton}
               >
                 <EditIcon />
+                <DeleteIcon />
               </IconButton>
             </Grid>
             <Grid item xs>
@@ -71,9 +73,7 @@ const Threadlist = () => {
                   variant='subtitle2'
                   color='textSecondary'
                   component='span'
-                >
-                  {` — ${thread.created}`}
-                </Typography>
+                ></Typography>
               </Box>
               <Typography variant='body1'>{thread.content}</Typography>
               <Divider />
@@ -81,6 +81,7 @@ const Threadlist = () => {
                 <AccountCircleIcon className={classes.userIcon} />
                 <Typography variant='subtitle2' component='span'>
                   {thread.creator}
+                  {` — ${thread.created}`}
                 </Typography>
               </Box>
             </Grid>

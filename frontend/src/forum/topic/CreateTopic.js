@@ -31,7 +31,7 @@ const Createtopic = () => {
     setOpen(false);
   };
 
-  let handleThread = (e) => {
+  const handleThread = (e) => {
     e.preventDefault();
     // check the authenticated user
     // if (!user) {

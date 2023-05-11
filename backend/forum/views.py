@@ -58,9 +58,9 @@ class ThreadCreate(generics.CreateAPIView):
         topic_id = self.request.data.get('topic')
         topic = Topic.objects.get(id=topic_id) 
         creator_id = self.request.data.get('creator')
-        creator = User.objects.get(id=creator_id)
+        creator = User.objects.get(username=creator_id)
         serializer.save(creator=creator, topic=topic) 
-
+        
 class ThreadUpdate(generics.UpdateAPIView):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
@@ -100,12 +100,12 @@ class PostCreate(generics.CreateAPIView):
 class PostUpdate(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class PostDelete(generics.DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer

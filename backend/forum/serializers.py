@@ -81,7 +81,7 @@ class ThreadSerializer(serializers.ModelSerializer):
             'created',
         )
         #fields = '__all__'
-        depth = 1
+        #depth = 1
     
 
 class PostSerializer(serializers.ModelSerializer):

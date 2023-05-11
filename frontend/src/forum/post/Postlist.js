@@ -58,7 +58,8 @@ const Postlist = () => {
     })
       .then((res) => res.json())
       .then((deletedPost) => {
-        navigate(`/thread/${id}`);
+        setPosts(posts.filter((post) => post.id !== id));
+        navigate(0);
       })
       .catch((err) => console.error({error: err}));
   };
@@ -88,7 +89,7 @@ const Postlist = () => {
                 <Button
                   className={classes.button}
                   variant='contained'
-                  onClick={deletePost}
+                  onClick={() => deletePost(post.id)}
                 >
                   Delete Post
                 </Button>

@@ -1,14 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import {Grid, IconButton, Pagination, Paper, Typography} from '@mui/material';
+import {Link, useNavigate} from 'react-router-dom';
+import {
+  Grid,
+  Box,
+  IconButton,
+  Pagination,
+  Paper,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+} from '@mui/material';
 import {Edit} from '@mui/icons-material';
+import ChatIcon from '@mui/icons-material/Chat';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CreateTopic from './CreateTopic.js';
 
 const Topiclist = () => {
   const [topics, setTopics] = useState([]);
 
+  // For Pagination
   const [activePage, setActivePage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const startIndex = (activePage - 1) * 8;
@@ -33,33 +51,63 @@ const Topiclist = () => {
   //console.log('ac:', activePage);
   const displayedTopics = topics.slice((activePage - 1) * 8, activePage * 8);
 
+  const deleteTopic = (id) => {
+    fetch(`http://localhost:8000/api/topics/delete/${id}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((deletedTopic) => {
+        setTopics(topics.filter((topic) => topic.id !== id));
+        alert('Topic deleted successfully');
+        navigate(0);
+      })
+      .catch((err) => console.error({error: err}));
+  };
+
   return (
-    <div>
-      <CreateTopic />
-      {displayedTopics.map((topic) => (
-        <Paper elevation={3} key={topic.id} style={{padding: '10px'}}>
-          <Grid container alignItems='center' spacing={1}>
-            <Grid item xs={2}>
-              <IconButton disabled>
-                <Edit />
-              </IconButton>
-            </Grid>
-            <Grid item xs={10}>
-              <Typography variant='h6'>
-                <Link to={`/topic/${topic.topic}`}>{topic.topic}</Link>
-              </Typography>
-              <Typography variant='body1'>{topic.description}</Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-      ))}
+    <Box sx={{flexGrow: 1, maxWidth: 752}}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Typography sx={{mt: 2, mb: 1, ml: 2}} variant='h6' component='div'>
+            List of available category <CreateTopic />
+          </Typography>
+          <List>
+            {displayedTopics.map((topic) => (
+              <ListItem
+                key={topic.id}
+                secondaryAction={
+                  <IconButton
+                    edge='end'
+                    aria-label='delete'
+                    onClick={() => deleteTopic(topic.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemAvatar>
+                  <Avatar>
+                    <ChatIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Link to={`/topic/${topic.topic}`}>{topic.topic}</Link>
+                  }
+                  secondary={topic.description}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+      </Grid>
       <Pagination
         count={Math.ceil(totalItems / 8)}
         page={activePage}
         onChange={(event, page) => setActivePage(page)}
         style={{marginTop: '10px'}}
       />
-    </div>
+    </Box>
   );
 };
 

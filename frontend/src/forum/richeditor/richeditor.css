@@ -7,7 +7,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  margin-bottom: 5vh;
+  margin-bottom: 2vh;
   text-align: center;
   padding: 12px;
 }
@@ -16,7 +16,7 @@
   border: 1px solid #ccc;
 }
 .editor-class {
-  background-color: lightgray;
+  background-color: lightgoldenrodyellow;
   padding: 1rem;
   border: 1px solid #ccc;
 }

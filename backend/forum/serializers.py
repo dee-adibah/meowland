@@ -68,16 +68,6 @@ class TopicSerializer(serializers.ModelSerializer):
         )
 
 class ThreadSerializer(serializers.ModelSerializer):
-    #creator_id = serializers.SerializerMethodField()
-    #creator = serializers.CharField()
-    topic = serializers.PrimaryKeyRelatedField(queryset=Topic.objects.all(),required=False,write_only=False)
-    creator = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),required=False,write_only=False)
-    created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
-    
-    # def creator_id(self):
-    #     creator_id = serializers.IntegerField()
-    #     return creator_id 
-
     class Meta:
         model = Thread
         fields = (
@@ -88,22 +78,11 @@ class ThreadSerializer(serializers.ModelSerializer):
             'creator',
             'created',
         )
-        depth=2
+        #fields = '__all__'
+        #depth = 1
     
 
 class PostSerializer(serializers.ModelSerializer):
-    # creator_id = serializers.SerializerMethodField('creator_id')
-    
-    # def creator_id(self):
-    #     creator_id = serializers.IntegerField()
-    #     return creator_id
-    
-    #creator = serializers.CharField()
-    creator = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),required=False,write_only=False)
-    thread = serializers.PrimaryKeyRelatedField(queryset=Thread.objects.all(),required=False,write_only=False)
-    created = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
-    updated = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
-    
     class Meta:
         model = Post
         fields = (
@@ -115,4 +94,4 @@ class PostSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
-        depth=2
+        #depth = 1

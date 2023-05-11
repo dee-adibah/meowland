@@ -10,6 +10,7 @@ import {
   Box,
 } from '@mui/material';
 import {makeStyles} from '@material-ui/core/styles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Richeditor from '../richeditor/Richeditor';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,8 +52,8 @@ const Postlist = () => {
   console.log('post:', posts);
   console.log('id:', id);
 
-  const deletePost = () => {
-    fetch(`http://localhost:8000/api/posts/delete/`, {
+  const deletePost = (id) => {
+    fetch(`http://localhost:8000/api/posts/delete/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())
@@ -69,7 +70,7 @@ const Postlist = () => {
           <Grid container wrap='nowrap' spacing={2}>
             <Grid item xs={12}>
               <Box className={classes.postUsername} mb={1}>
-                <Icon name='user' />
+                <AccountCircleIcon name='user' />
                 <Typography variant='subtitle2' component='span'>
                   {post.creator}
                 </Typography>

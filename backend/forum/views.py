@@ -27,12 +27,12 @@ class TopicCreate(generics.CreateAPIView):
 class TopicUpdate(generics.UpdateAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 class TopicDelete(generics.DestroyAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
     
 class ThreadList(generics.ListAPIView):
     queryset = Thread.objects.all()

@@ -29,10 +29,10 @@
   align-items: center;
 }
 
-.pml__navbar-links_container p,
+.pml__navbar-links_container a,
 .pml__navbar-sign p,
 .pml__navbar-title,
-.pml__navbar-menu_container p {
+.pml__navbar-menu_container a {
   color: #fff;
   font-family: var(--font-family);
   font-weight: 500;

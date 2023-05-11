@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useNavigate} from 'react-router-dom';
 import {
   Grid,
   Typography,
@@ -38,6 +38,7 @@ const Threadlist = () => {
   const [threads, setThreads] = useState([]);
   const {id} = useParams();
   const classes = useStyles();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/threads/${id}`)
@@ -49,20 +50,26 @@ const Threadlist = () => {
       .catch((error) => console.error('Error fetching threads:', error));
   }, [id]);
 
+  const deleteThread = (id) => {
+    fetch(`http://localhost:8000/api/threads/delete/${id}`, {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        res.json();
+        alert('Thread deleted successfully');
+        navigate(0);
+      })
+      .catch((err) => console.error({error: err}));
+  };
+
   return (
     <div className={classes.root}>
       {threads.map((thread) => (
         <Paper className={classes.paper} key={thread.id}>
           <Grid container wrap='nowrap' spacing={2}>
             <Grid item>
-              <IconButton
-                component={Link}
-                // to={`/thread/${thread.id}`}
-                className={classes.iconButton}
-              >
-                <EditIcon />
-                <DeleteIcon />
-              </IconButton>
+              <EditIcon />
+              <DeleteIcon onClick={() => deleteThread(thread.id)} />
             </Grid>
             <Grid item xs>
               <Box display='flex' alignItems='center'>

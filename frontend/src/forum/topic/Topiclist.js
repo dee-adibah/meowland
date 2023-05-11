@@ -56,9 +56,8 @@ const Topiclist = () => {
     fetch(`http://localhost:8000/api/topics/delete/${id}`, {
       method: 'DELETE',
     })
-      .then((res) => res.json())
-      .then((deletedTopic) => {
-        setTopics(topics.filter((topic) => topic.id !== id));
+      .then((res) => {
+        res.json();
         alert('Topic deleted successfully');
         navigate(0);
       })
@@ -93,7 +92,7 @@ const Topiclist = () => {
     <Box sx={{flexGrow: 1}}>
       <Grid item xs={12} md={3} mr={4} ml={4}>
         <Typography sx={{mt: 2, mb: 1, ml: 2}} variant='h4' component='div'>
-          List of available category <CreateTopic />
+          List of Topics <CreateTopic />
         </Typography>
         <List>
           {displayedTopics.map((topic) => (

@@ -1,0 +1,196 @@
+.login-signup-container {
+  display: grid;
+  grid-template-columns: 70% 30% 70%;
+  width: 60%;
+  height: 400px;
+  background-color: #f5f5f5;
+  padding: 0px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  border: 1px solid #000;
+  overflow: hidden;
+  transition: 0.3s linear;
+}
+
+.login-signup-container.active {
+  display: grid;
+  grid-template-columns: 0% 30% 70%;
+  width: 60%;
+  height: 400px;
+  background-color: #f5f5f5;
+  padding: 0px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  border: 1px solid #000;
+  overflow: hidden;
+  transition: 0.3s linear;
+}
+
+.login-signup-container .side-div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('https://img.freepik.com/free-vector/cute-cool-cat-wearing-glasses-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated_138676-4268.jpg?w=2000');
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+}
+
+.login-signup-container .side-div button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-size: 0.99rem;
+  transition: 0.2s linear;
+}
+
+.login-signup-container .side-div button:hover {
+  background-color: rgb(55, 54, 54);
+  border: 1px solid #000;
+  border: 1px solid #555;
+}
+
+.login {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login h1 {
+  font-size: 4.5rem;
+  margin-top: 20px;
+  color: #000;
+  font-weight: bold;
+  padding: 15px 0;
+}
+
+.login form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.login form input:not([type='submit']) {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000;
+  outline: none !important;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.login form button {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000;
+  outline: none !important;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #000;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.login form button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.signup {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup h1 {
+  font-size: 4.5rem;
+  margin-top: 20px;
+  color: #000;
+  font-weight: bold;
+  padding: 15px 0;
+}
+
+.signup form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.signup form input:not([type='submit']) {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000;
+  outline: none !important;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.signup form button {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000;
+  outline: none !important;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #000;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.signup form button:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media screen and (max-width: 650px) {
+  /* Customizing feature component as per needs */
+  .login h1,
+  .signup h1 {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  /* Customizing feature component as per needs */
+  .signup h1 {
+    font-size: 2.5rem;
+  }
+}

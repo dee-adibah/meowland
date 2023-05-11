@@ -6,6 +6,7 @@ import Header from './home/header/Header.js';
 import Topiclist from './forum/topic/Topiclist.js';
 import Threadlist from './forum/thread/Threadlist.js';
 import Postlist from './forum/post/Postlist.js';
+import Register from './account/RegLog.js';
 
 function App({id}) {
   return (
@@ -17,8 +18,8 @@ function App({id}) {
           <Route path='/topic/:id' element={<Threadlist topicTitle={id} />} />
           <Route path='/thread/:id' element={<Postlist threadTitle={id} />} />
           {/* <Route path='/post/:id' element={} /> */}
-          {/* <Route path='/breed' element={<Breed />} />
-          <Route path='/sign' element={<RegLog />} /> */}
+          {/* <Route path='/breed' element={<Breed />} /> */}
+          <Route path='/sign' element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>

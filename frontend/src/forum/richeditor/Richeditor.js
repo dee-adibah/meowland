@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {EditorState, ContentState, convertToRaw} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -6,30 +6,33 @@ import './richeditor.css';
 import {Button, FormControl} from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
+import UserContext from '../../utils/UserContext.js';
 
 const Richeditor = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
+
   const [createPost, setCreatePost] = useState({
     content: '',
   });
 
-  const handleThread = (e) => {
+  const handlePost = (e) => {
     e.preventDefault();
-    // check the authenticated user
-    // if (!user) {
-    //   setAlertShow(true);
-    //   event.preventDefault();
-    // }
-    fetch(`http://localhost:8000/api/topics/create/`, {
+    const now = new Date().toISOString().slice(0, 16);
+    fetch(`http://localhost:8000/api/posts/create/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        //topic: topicID,
+        thread: createPost.thread,
         content: createPost.content,
+        creator: user.username,
+        created: now,
       }),
     })
       .then((res) => res.json())

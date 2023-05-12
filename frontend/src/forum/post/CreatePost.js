@@ -16,12 +16,10 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import {useNavigate, Link} from 'react-router-dom';
 import UserContext from '../../utils/UserContext.js';
 
-const CreateThread = ({threads}) => {
+const CreatePost = ({posts}) => {
   const [alertShow, setAlertShow] = useState(false);
   const [open, setOpen] = useState(false);
-  const [newThread, setNewThread] = useState({
-    topic: '',
-    thread: '',
+  const [newPost, setNewPost] = useState({
     content: '',
   });
   const {user} = useContext(UserContext);
@@ -34,20 +32,23 @@ const CreateThread = ({threads}) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const topicID = threads.length > 0 ? threads[1].topic.id : '';
-  const handleThread = async (e) => {
+
+  const threadID = window.location.pathname.slice(8);
+  console.log('id', threadID); // prints the current URL to the console
+
+  const handlePost = async (e) => {
     e.preventDefault();
     const now = new Date().toISOString().slice(0, 16);
-    const response = await fetch(`http://localhost:8000/api/threads/create/`, {
+    const response = await fetch(`http://localhost:8000/api/posts/create/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        topic: topicID,
-        thread: newThread.thread,
-        content: newThread.content,
-        creator: user.username,
+        title: '',
+        thread: threadID,
+        content: newPost.content,
+        creator: user.user_id,
         created: now,
       }),
     });
@@ -66,7 +67,7 @@ const CreateThread = ({threads}) => {
       alert('Thread successfully created');
       navigate(0);
     } else {
-      alert('Something went wrong! Thread title need to be unique');
+      alert('Something went wrong!');
     }
   };
 
@@ -84,33 +85,14 @@ const CreateThread = ({threads}) => {
             minHeight: '32px',
           }}
         >
-          New Thread
+          New/Reply Post
         </Button>
       </Grid>
 
       <Dialog fullWidth maxWidth='sm' open={open} onClose={handleClose}>
-        <form onSubmit={handleThread} id='NewThreadForm'>
-          <DialogTitle>New Thread</DialogTitle>
+        <form onSubmit={handlePost} id='NewThreadForm'>
+          <DialogTitle>New/Reply Post</DialogTitle>
           <DialogContent>
-            <TextField
-              style={{
-                marginTop: 20,
-              }}
-              required
-              autoFocus
-              margin='dense'
-              id='thread'
-              name='thread'
-              label='input new thread title here'
-              type='text'
-              fullWidth
-              variant='standard'
-              value={newThread.thread}
-              onChange={(e) =>
-                setNewThread({...newThread, thread: e.target.value})
-              }
-            />
-
             <TextField
               required
               autoFocus
@@ -125,9 +107,9 @@ const CreateThread = ({threads}) => {
               multiline
               rows={10}
               onChange={(e) =>
-                setNewThread({...newThread, content: e.target.value})
+                setNewPost({...newPost, content: e.target.value})
               }
-              value={newThread.content}
+              value={newPost.content}
             />
           </DialogContent>
 
@@ -147,4 +129,4 @@ const CreateThread = ({threads}) => {
   );
 };
 
-export default CreateThread;
+export default CreatePost;

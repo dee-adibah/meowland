@@ -9,8 +9,9 @@ urlpatterns = [
          name='token_refresh'),
     path("user/login/", views.LoginView.as_view(renderer_classes=[JSONRenderer]), name="user-login"),
     path("user/signup/", views.RegisterUsersView.as_view(renderer_classes=[JSONRenderer]), name="user-signup"),
-    #path('register/', views.RegisterView.as_view(), name='auth_register'),
-    #path("api/profile/<int:user_id>", views.user_profile, name="profile")
+    path("profile/", views.ProfileView.as_view(renderer_classes=[JSONRenderer]), name="profile"),
+    path("profile/<str:username>/", views.ProfileOne.as_view(renderer_classes=[JSONRenderer]), name="one-profile"),
+    path("profile/update/<int:user_id>", views.ProfileUpdate.as_view(), name="update-profile"),
     path('topics/', views.TopicList.as_view(renderer_classes=[JSONRenderer]), name='topic-list'),
     path('topics/create/', views.TopicCreate.as_view(), name='topic-create'),
     path('topics/update/<int:pk>/', views.TopicUpdate.as_view(), name='topic-update'),

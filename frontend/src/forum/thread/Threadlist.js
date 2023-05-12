@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams, Link, useNavigate} from 'react-router-dom';
 import {
   Grid,
@@ -12,6 +12,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import UserContext from '../../utils/UserContext.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,10 @@ const Threadlist = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  //for admin/user control
+  const {user} = useContext(UserContext);
+  const [getData, setGetData] = useState([]);
+
   useEffect(() => {
     fetch(`http://localhost:8000/api/threads/${id}`)
       .then((data) => data.json())
@@ -65,15 +70,36 @@ const Threadlist = () => {
       .catch((err) => console.error({error: err}));
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/profile/`)
+      .then(
+        (data) => data.json(),
+        (err) => console.log(err)
+      )
+      .then(
+        (parsedData) => {
+          setGetData(parsedData);
+        },
+        (err) => console.log(err)
+      );
+  }, []);
+
+  const checkUser = getData.find((data) => data.username === user.username);
+  const userStatus = checkUser?.status;
   //console.log('thread', threads);
+
   return (
     <div className={classes.root}>
       {Object.values(threads).map((thread) => (
         <Paper className={classes.paper} key={thread.id}>
           <Grid container wrap='nowrap' spacing={2}>
             <Grid item>
-              <EditIcon />
-              <DeleteIcon onClick={() => deleteThread(thread.id)} />
+              {/* <EditIcon /> */}
+              {user &&
+                (user.username === thread.username ||
+                  userStatus === 'admin') && (
+                  <DeleteIcon onClick={() => deleteThread(thread.id)} />
+                )}
             </Grid>
             <Grid item xs>
               <Box display='flex' alignItems='center'>

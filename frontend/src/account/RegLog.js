@@ -1,14 +1,13 @@
-import React, {useRef, useState} from 'react';
-import './register.css';
+import React, {useContext, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import './reglog.css';
+import jwt_decode from 'jwt-decode';
+import UserContext from '../utils/UserContext.js';
 
 const RegLog = () => {
   //for button toggle login & signup
   const [login, setLogin] = useState(true);
   const loginSignupContainerRef = useRef('');
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
 
   const handleClick = () => {
     setLogin(!login);
@@ -16,9 +15,7 @@ const RegLog = () => {
     loginSignupContainerRef.current.classList.toggle('active');
   };
 
-  const loginUser = () => {};
-
-  const registerUser = () => {};
+  const {loginUser, registerUser, user} = useContext(UserContext);
 
   return (
     <div className='login-signup-container' ref={loginSignupContainerRef}>
@@ -26,18 +23,17 @@ const RegLog = () => {
         <h1>Login</h1>
         <form className='login-side' onSubmit={loginUser}>
           <input
-            type={'username'}
-            placeholder={'username'}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
+            id='username'
+            label='Username'
+            name='username'
+            type='username'
+            placeholder='username'
           />
           <input
-            type={'password'}
-            placeholder={'password'}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            name='password'
+            label='Password'
+            type='password'
+            placeholder='password'
           />
           <button type={'submit'}>Login</button>
         </form>
@@ -51,29 +47,30 @@ const RegLog = () => {
         <h1>Register</h1>
         <form className='signup-side' onSubmit={registerUser}>
           <input
-            type={'username'}
-            placeholder={'username'}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
+            id='username'
+            label='Username'
+            name='username'
+            type='username'
+            placeholder='username'
           />
           <input
-            type={'email'}
-            placeholder={'email'}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            id='email'
+            label='Email Address'
+            name='email'
+            type='email'
+            placeholder='email'
           />
           <input
-            type={'password'}
-            placeholder={'password'}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            placeholder='password'
           />
           <button type={'submit'}>Register</button>
         </form>
       </div>
+      {user && <p>Welcome {user.username}!</p>}
     </div>
   );
 };

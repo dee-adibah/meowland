@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {
   Grid,
@@ -18,10 +18,12 @@ import ChatIcon from '@mui/icons-material/Chat';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CreateTopic from './CreateTopic.js';
+import UserContext from '../../utils/UserContext.js';
 
 const Topiclist = () => {
   const [topics, setTopics] = useState([]);
-  const [newUpdateTopic, setNewUpdateTopic] = useState();
+  //const [newUpdateTopic, setNewUpdateTopic] = useState();
+  const [getData, setGetData] = useState([]);
 
   // For Pagination
   const [activePage, setActivePage] = useState(1);
@@ -29,6 +31,8 @@ const Topiclist = () => {
 
   const navigate = useNavigate();
 
+  const {user} = useContext(UserContext);
+  //console.log('profile', id);
   useEffect(() => {
     const startIndex = (activePage - 1) * 8;
     const endIndex = startIndex + 8;
@@ -48,8 +52,6 @@ const Topiclist = () => {
       );
   }, [activePage]);
 
-  //console.log('topics:', topics);
-
   const displayedTopics = topics.slice((activePage - 1) * 8, activePage * 8);
 
   const deleteTopic = (id) => {
@@ -67,43 +69,65 @@ const Topiclist = () => {
       .catch((err) => console.error({error: err}));
   };
 
-  const updateTopic = (id) => {
-    fetch(`http://localhost:8000/api/topics/update/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        topic: newUpdateTopic.topic,
-        description: newUpdateTopic.description,
-      }),
-    })
-      .then((res) => res.json())
-      .then((updatedTopic) => {
-        setTopics(
-          topics.map((topic) =>
-            topic.id === updatedTopic.id ? updatedTopic : topic
-          )
-        );
-        alert('Topic updated successfully');
-        navigate(0);
-      })
-      .catch((err) => console.error({error: err}));
-  };
+  // Future consideration to do topic Update
+
+  // const updateTopic = (id) => {
+  //   fetch(`http://localhost:8000/api/topics/update/${id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       topic: newUpdateTopic.topic,
+  //       description: newUpdateTopic.description,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((updatedTopic) => {
+  //       setTopics(
+  //         topics.map((topic) =>
+  //           topic.id === updatedTopic.id ? updatedTopic : topic
+  //         )
+  //       );
+  //       alert('Topic updated successfully');
+  //       navigate(0);
+  //     })
+  //     .catch((err) => console.error({error: err}));
+  // };
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/profile/`)
+      .then(
+        (data) => data.json(),
+        (err) => console.log(err)
+      )
+      .then(
+        (parsedData) => {
+          setGetData(parsedData);
+        },
+        (err) => console.log(err)
+      );
+  }, []);
+
+  const checkUser = getData.find((data) => data.username === user.username);
+  const userStatus = checkUser?.status;
+
+  //console.log('topics:', check, match);
 
   return (
     <Box sx={{flexGrow: 1}}>
       <Grid item xs={12} md={3} mr={4} ml={4}>
         <Typography sx={{mt: 2, mb: 1, ml: 2}} variant='h4' component='div'>
-          List of Topics <CreateTopic />
+          List of Topics
         </Typography>
+        {user && userStatus === 'admin' && <CreateTopic />}
         <List>
           {displayedTopics.map((topic) => (
             <ListItem
               key={topic.id}
               secondaryAction={
                 <IconButton edge='end' aria-label='delete'>
-                  <EditIcon
+                  {/* <EditIcon
                     onClick={() => {
                       const updatedTopicData = {
                         topic: 'New topic',
@@ -111,8 +135,10 @@ const Topiclist = () => {
                       };
                       updateTopic(topic.id, updatedTopicData);
                     }}
-                  />
-                  <DeleteIcon onClick={() => deleteTopic(topic.id)} />
+                  /> */}
+                  {user && userStatus === 'admin' && (
+                    <DeleteIcon onClick={() => deleteTopic(topic.id)} />
+                  )}
                 </IconButton>
               }
             >

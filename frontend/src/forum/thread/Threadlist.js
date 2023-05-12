@@ -55,14 +55,17 @@ const Threadlist = () => {
       method: 'DELETE',
     })
       .then((res) => {
-        res.json();
+        console.log('res:', res);
         alert('Thread deleted successfully');
         navigate(0);
+      })
+      .then(() => {
+        setThreads(threads.filter((thread) => thread.id !== id));
       })
       .catch((err) => console.error({error: err}));
   };
 
-  console.log('thread', threads);
+  //console.log('thread', threads);
   return (
     <div className={classes.root}>
       {Object.values(threads).map((thread) => (

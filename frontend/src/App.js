@@ -6,22 +6,25 @@ import Header from './home/header/Header.js';
 import Topiclist from './forum/topic/Topiclist.js';
 import Threadlist from './forum/thread/Threadlist.js';
 import Postlist from './forum/post/Postlist.js';
-import Register from './account/RegLog.js';
+import RegLog from './account/RegLog.js';
+import {AuthProvider} from './utils/UserContext';
 
 function App({id}) {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Header />} />
-          <Route path='/forum' element={<Topiclist />} />
-          <Route path='/topic/:id' element={<Threadlist topicTitle={id} />} />
-          <Route path='/thread/:id' element={<Postlist threadTitle={id} />} />
-          {/* <Route path='/post/:id' element={} /> */}
-          {/* <Route path='/breed' element={<Breed />} /> */}
-          <Route path='/sign' element={<Register />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Header />} />
+            <Route path='/forum' element={<Topiclist />} />
+            <Route path='/topic/:id' element={<Threadlist topicTitle={id} />} />
+            <Route path='/thread/:id' element={<Postlist threadTitle={id} />} />
+            {/* <Route path='/post/:id' element={} /> */}
+            {/* <Route path='/breed' element={<Breed />} /> */}
+            <Route path='/sign' element={<RegLog />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

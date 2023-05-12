@@ -29,10 +29,21 @@
   align-items: center;
 }
 
+.pml__navbar-title {
+  color: #fff;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  text-transform: capitalize;
+  margin: 0 1rem;
+}
+
 .pml__navbar-links_container a,
+.pml__navbar-links_container p,
 .pml__navbar-sign p,
-.pml__navbar-title,
-.pml__navbar-menu_container a {
+.pml__navbar-menu_container a,
+.pml__navbar-menu_container p {
   color: #fff;
   font-family: var(--font-family);
   font-weight: 500;

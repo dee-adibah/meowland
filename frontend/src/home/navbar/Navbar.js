@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {RiMenu3Line, RiCloseLine} from 'react-icons/ri';
 import './navbar.css';
-import {Icon} from 'semantic-ui-react';
+import PetsIcon from '@mui/icons-material/Pets';
+import {useNavigate} from 'react-router-dom';
+import UserContext from '../../utils/UserContext.js';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-
+  const {logoutUser, user} = useContext(UserContext);
   return (
     <div className='pml__navbar'>
       <div className='pml__navbar-links'>
         <div className='pml__navbar-title'>
-          <Icon name='paw' size='large' /> MeowLand
+          <PetsIcon /> MeowLand
         </div>
         <div className='pml__navbar-links_container'>
           <a href='/'>Home</a>
@@ -19,9 +21,18 @@ const Navbar = () => {
         </div>
       </div>
       <div className='pml__navbar-sign'>
-        <button type='button'>
-          <a href='/sign'>Login/Register</a>
-        </button>
+        {user ? (
+          <div className='pml__navbar-sign'>
+            <p>{user.username}</p>
+            <button type='button' onClick={logoutUser}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <button type='button'>
+            <a href='/sign'>Login/Register</a>
+          </button>
+        )}
       </div>
       <div className='pml__navbar-menu'>
         {toggleMenu ? (
@@ -50,10 +61,23 @@ const Navbar = () => {
                 <a href='/breed'>Breeds</a>
               </p>
             </div>
+
             <div className='pml__navbar-menu_container-links-sign'>
-              <button type='button'>
-                <a href='/sign'>Login/Register</a>
-              </button>
+              <p></p>
+              {user ? (
+                <div className='pml__navbar-menu_container-links'>
+                  <p>
+                    <a>{user.username}</a>
+                  </p>
+                  <button type='button' onClick={logoutUser}>
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button type='button'>
+                  <a href='/sign'>Login/Register</a>
+                </button>
+              )}
             </div>
           </div>
         )}

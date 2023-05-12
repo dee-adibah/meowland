@@ -87,7 +87,7 @@ const Threadlist = () => {
               <Box className={classes.forumMeta} mt={1} color='text.secondary'>
                 <AccountCircleIcon className={classes.userIcon} />
                 <Typography variant='subtitle2' component='span'>
-                  {thread.creator}
+                  {thread.creator.username}
                   {` — ${thread.created}`}
                 </Typography>
               </Box>

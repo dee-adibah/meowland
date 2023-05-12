@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import UserContext from '../utils/UserContext.js';
 
 const RegLog = () => {
+  const {loginUser, registerUser, user} = useContext(UserContext);
   //for button toggle login & signup
   const [login, setLogin] = useState(true);
   const loginSignupContainerRef = useRef('');
@@ -15,7 +16,12 @@ const RegLog = () => {
     loginSignupContainerRef.current.classList.toggle('active');
   };
 
-  const {loginUser, registerUser, user} = useContext(UserContext);
+  //for password
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div className='login-signup-container' ref={loginSignupContainerRef}>

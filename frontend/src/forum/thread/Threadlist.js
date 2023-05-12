@@ -13,10 +13,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UserContext from '../../utils/UserContext.js';
+import CreateThread from './CreateThread.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   userIcon: {
     fontSize: 20,
     marginRight: theme.spacing(0.5),
+  },
+  deleteIcon: {
+    marginLeft: '1rem',
   },
 }));
 
@@ -63,6 +68,7 @@ const Threadlist = () => {
         console.log('res:', res);
         alert('Thread deleted successfully');
         navigate(0);
+        navigate(0);
       })
       .then(() => {
         setThreads(threads.filter((thread) => thread.id !== id));
@@ -90,29 +96,34 @@ const Threadlist = () => {
 
   return (
     <div className={classes.root}>
+      {threads.length > 0 && (
+        <Typography
+          sx={{
+            mt: 2,
+            mb: 1,
+            ml: 2,
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            textTransform: 'capitalize',
+          }}
+          variant='h4'
+          component='div'
+        >
+          {threads[0].topic.topic}
+        </Typography>
+      )}
+      {user && <CreateThread threads={threads} />}
+
       {Object.values(threads).map((thread) => (
         <Paper className={classes.paper} key={thread.id}>
+          {/* Topic: {thread.topic.topic} */}
           <Grid container wrap='nowrap' spacing={2}>
-            <Grid item>
-              {/* <EditIcon /> */}
-              {user &&
-                (user.username === thread.username ||
-                  userStatus === 'admin') && (
-                  <DeleteIcon onClick={() => deleteThread(thread.id)} />
-                )}
-            </Grid>
             <Grid item xs>
               <Box display='flex' alignItems='center'>
                 <Link to={`/thread/${thread.id}`}>
                   <Typography variant='h6'>{thread.thread}</Typography>
                 </Link>
-                {/* <Typography
-                  variant='subtitle2'
-                  color='textSecondary'
-                  component='span'
-                >
-                  
-                </Typography> */}
               </Box>
               <Typography variant='body1'>{thread.content}</Typography>
               <Divider />
@@ -122,6 +133,17 @@ const Threadlist = () => {
                   {thread.creator.username}
                   {` — ${thread.created}`}
                 </Typography>
+                <Grid item>
+                  {/* <EditIcon /> */}
+                  {user &&
+                  (user.username === thread.creator.username ||
+                    userStatus === 'admin') ? (
+                    <DeleteIcon
+                      className={classes.deleteIcon}
+                      onClick={() => deleteThread(thread.id)}
+                    />
+                  ) : null}
+                </Grid>
               </Box>
             </Grid>
           </Grid>

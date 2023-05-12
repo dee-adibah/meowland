@@ -23,7 +23,7 @@ class Topic(models.Model):
 
 class Thread(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.DO_NOTHING)
-    thread = models.CharField(max_length=90)
+    thread = models.CharField(max_length=90, unique=True)
     content = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
@@ -33,7 +33,7 @@ class Thread(models.Model):
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=90)
+    title = models.CharField(max_length=90, blank=True)
     content = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)

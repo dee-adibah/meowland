@@ -13,6 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Richeditor from '../richeditor/Richeditor';
 import UserContext from '../../utils/UserContext.js';
+import CreatePost from './CreatePost';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,8 +55,8 @@ const Postlist = () => {
       .catch((error) => console.error('Error fetching posts:', error));
   }, [id]);
 
-  console.log('post:', posts);
-  console.log('id:', id);
+  // console.log('post:', posts);
+  // console.log('id:', id);
 
   const deletePost = (id) => {
     fetch(`http://localhost:8000/api/posts/delete/${id}`, {
@@ -91,6 +92,23 @@ const Postlist = () => {
 
   return (
     <div className={classes.root}>
+      {posts.length > 0 && (
+        <Typography
+          sx={{
+            mt: 2,
+            mb: 1,
+            ml: 2,
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+          variant='h4'
+          component='div'
+        >
+          {posts[0].thread.thread}
+        </Typography>
+      )}
+      {user && <CreatePost posts={posts} />}
       {posts.map((post) => (
         <Paper className={classes.paper} key={post.id}>
           <Grid container wrap='nowrap' spacing={2}>
@@ -112,7 +130,7 @@ const Postlist = () => {
               <Divider />
               <Box mt={1}>
                 {user &&
-                  (user.username === post.username ||
+                  (user.username === post.creator.username ||
                     userStatus === 'admin') && (
                     <Button
                       className={classes.button}
@@ -127,7 +145,7 @@ const Postlist = () => {
           </Grid>
         </Paper>
       ))}
-      <Richeditor />
+      {/* <Richeditor /> */}
     </div>
   );
 };

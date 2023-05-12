@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
     console.log(credentials);
 
     // get the api auth token from backend
-    let response = await fetch(`http://localhost:8000/api/token/`, {
+    const response = await fetch(`http://localhost:8000/api/token/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export const AuthProvider = ({children}) => {
       }),
     });
 
-    let data = null;
+    const data = null;
 
     try {
       const responseBody = await response.text();

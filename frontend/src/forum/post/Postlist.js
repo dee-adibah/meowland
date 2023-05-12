@@ -42,7 +42,7 @@ const Postlist = () => {
   const classes = useStyles();
 
   //for admin/user control
-  const {user} = useContext(UserContext);
+  const {user = {}} = useContext(UserContext);
   const [getData, setGetData] = useState([]);
 
   useEffect(() => {
@@ -87,7 +87,8 @@ const Postlist = () => {
       );
   }, []);
 
-  const checkUser = getData.find((data) => data.username === user.username);
+  const checkUser =
+    user && getData.find((data) => data.username === user.username);
   const userStatus = checkUser?.status;
 
   return (

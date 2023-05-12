@@ -152,7 +152,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
     """
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
-    #queryset = User.objects.all()
+    queryset = User.objects.all()
 
     def post(self, request, *args, **kwargs):
         username = request.data.get("username", "")

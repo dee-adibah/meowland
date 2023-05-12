@@ -24,26 +24,26 @@ class TopicList(generics.ListAPIView):
     
 class TopicCreate(generics.CreateAPIView):
     serializer_class = TopicSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class TopicUpdate(generics.UpdateAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class TopicDelete(generics.DestroyAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     
 class ThreadList(generics.ListAPIView):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class ThreadListByTopic(generics.ListAPIView):
     serializer_class = ThreadSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     def get_queryset(self):
         topic = self.kwargs['topic']
         queryset = Thread.objects.filter(topic__topic=topic)
@@ -51,6 +51,7 @@ class ThreadListByTopic(generics.ListAPIView):
 
 class ThreadCreate(generics.CreateAPIView):
     serializer_class = ThreadSerializer
+    queryset = Thread.objects.all()
     permission_classes = [AllowAny]
     
     def perform_create(self, serializer):
@@ -64,21 +65,21 @@ class ThreadCreate(generics.CreateAPIView):
 class ThreadUpdate(generics.UpdateAPIView):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class ThreadDelete(generics.DestroyAPIView):
     queryset = Thread.objects.all()
     serializer_class = ThreadSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     
 class PostList(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class PostListByThread(generics.ListAPIView):
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     def get_queryset(self):
         thread_id = self.kwargs['thread_id']
         queryset = Post.objects.filter(thread__id=thread_id)
@@ -87,7 +88,7 @@ class PostListByThread(generics.ListAPIView):
 class PostCreate(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+   # permission_classes = [AllowAny]
     
     def perform_create(self, serializer):
     # Set the foreign key field to an existing object
@@ -100,12 +101,12 @@ class PostCreate(generics.CreateAPIView):
 class PostUpdate(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+   # permission_classes = [AllowAny]
 
 class PostDelete(generics.DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -175,16 +176,16 @@ class RegisterUsersView(generics.ListCreateAPIView):
 class ProfileView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserAndProfileSerializer
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     
 class ProfileOne(generics.RetrieveAPIView):
     serializer_class = UserAndProfileSerializer
     queryset = User.objects.all()
     lookup_field = 'username' 
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     
 class ProfileUpdate(generics.UpdateAPIView):
     serializer_class = ProfileUpdateSerializer
     queryset = Profile.objects.all()
     lookup_field = 'user_id'
-    permission_classes = [AllowAny]
+   # permission_classes = [AllowAny]

@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UserContext from '../../utils/UserContext.js';
+import CreateThread from './CreateThread.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,8 +91,10 @@ const Threadlist = () => {
 
   return (
     <div className={classes.root}>
+      {user && <CreateThread threads={threads} />}
       {Object.values(threads).map((thread) => (
         <Paper className={classes.paper} key={thread.id}>
+          <Grid>Title: {thread.topic.topic}</Grid>
           <Grid container wrap='nowrap' spacing={2}>
             <Grid item>
               {/* <EditIcon /> */}

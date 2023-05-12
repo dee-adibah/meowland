@@ -7,10 +7,12 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=16, default='', blank=True)
+    status = models.CharField(max_length=16, default='user', blank=True)
+    about = models.TextField(max_length=500, default="Hello there", blank=True)
+    photo = models.URLField(default='https://t4.ftcdn.net/jpg/03/73/50/09/360_F_373500999_wAWkzJZRb2XHm9KeHEDcCJBkx4wR67us.jpg', blank=True)
     
     def __str__(self):
-        return self.user
+        return self.status
 
 class Topic(models.Model):
     topic = models.CharField(max_length=30, unique=True)

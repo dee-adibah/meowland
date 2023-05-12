@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {
   Grid,
@@ -18,6 +18,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CreateTopic from './CreateTopic.js';
+import UserContext from '../../utils/UserContext.js';
 
 const Topiclist = () => {
   const [topics, setTopics] = useState([]);
@@ -28,6 +29,8 @@ const Topiclist = () => {
   const [totalItems, setTotalItems] = useState(0);
 
   const navigate = useNavigate();
+
+  const {user} = useContext(UserContext);
 
   useEffect(() => {
     const startIndex = (activePage - 1) * 8;
@@ -87,13 +90,14 @@ const Topiclist = () => {
       })
       .catch((err) => console.error({error: err}));
   };
-
+  console.log('check', user);
   return (
     <Box sx={{flexGrow: 1}}>
       <Grid item xs={12} md={3} mr={4} ml={4}>
         <Typography sx={{mt: 2, mb: 1, ml: 2}} variant='h4' component='div'>
-          List of Topics <CreateTopic />
+          List of Topics
         </Typography>
+        {user ? <CreateTopic /> : null}
         <List>
           {displayedTopics.map((topic) => (
             <ListItem

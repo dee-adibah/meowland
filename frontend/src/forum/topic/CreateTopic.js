@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Button,
   TextField,
@@ -8,10 +8,13 @@ import {
   DialogTitle,
   Stack,
   Grid,
+  Box,
+  Alert,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
+import UserContext from '../../utils/UserContext.js';
 
 const Createtopic = () => {
   const [alertShow, setAlertShow] = useState(false);
@@ -21,6 +24,7 @@ const Createtopic = () => {
     description: '',
   });
 
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleClickOpen = () => {
@@ -33,11 +37,6 @@ const Createtopic = () => {
 
   const handleThread = (e) => {
     e.preventDefault();
-    // check the authenticated user
-    // if (!user) {
-    //   setAlertShow(true);
-    //   event.preventDefault();
-    // }
     fetch(`http://localhost:8000/api/topics/create/`, {
       method: 'POST',
       headers: {
@@ -51,7 +50,7 @@ const Createtopic = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(`New topic created:`, data);
-        navigate(0);
+        alert('Topic successfully created');
       })
       .catch((err) => console.error({Error: err}));
   };
@@ -76,15 +75,6 @@ const Createtopic = () => {
 
       <Dialog fullWidth maxWidth='sm' open={open} onClose={handleClose}>
         <form onSubmit={handleThread} id='NewTopicForm'>
-          {/* <Box>
-                  {alertShow && (
-                    <Alert severity='error' onClose={() => setAlertShow(false)}>
-                      Please login to add new thread.{' '}
-                      <Link href='/login'>Click here to login.</Link>
-                    </Alert>
-                  )}
-                </Box> */}
-
           <DialogTitle>New Topic</DialogTitle>
           <DialogContent>
             <TextField

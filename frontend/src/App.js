@@ -7,6 +7,7 @@ import Topiclist from './forum/topic/Topiclist.js';
 import Threadlist from './forum/thread/Threadlist.js';
 import Postlist from './forum/post/Postlist.js';
 import RegLog from './account/RegLog.js';
+import Profile from './account/Profile.js';
 import {AuthProvider} from './utils/UserContext';
 
 function App({id}) {
@@ -22,6 +23,7 @@ function App({id}) {
             {/* <Route path='/post/:id' element={} /> */}
             {/* <Route path='/breed' element={<Breed />} /> */}
             <Route path='/sign' element={<RegLog />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
         </Routes>
       </AuthProvider>

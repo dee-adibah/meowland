@@ -3,7 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
-from .serializers import TopicSerializer, ProfileSerializer, ThreadSerializer, PostSerializer, MyTokenObtainPairSerializer, RegisterSerializer, UserSerializer, TokenSerializer
+from .serializers import TopicSerializer, ProfileSerializer, ThreadSerializer, PostSerializer, MyTokenObtainPairSerializer, RegisterSerializer, UserSerializer, TokenSerializer, UserAndProfileSerializer, ProfileUpdateSerializer
 from django.contrib.auth import authenticate, login
 from .models import User, Profile, Topic, Thread, Post
 # JWT settings
@@ -151,7 +151,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
     """
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    #queryset = User.objects.all()
 
     def post(self, request, *args, **kwargs):
         username = request.data.get("username", "")
@@ -167,14 +167,24 @@ class RegisterUsersView(generics.ListCreateAPIView):
         new_user = User.objects.create_user(
             username=username, password=password, email=email
         )
+        profile = Profile.objects.create_user(
+            user=new_user, status='user'
+        )
         return Response(status=status.HTTP_201_CREATED)
 
-# @api_view(['GET'])
-# def user_profile(request):
-#     user = request.user
-#     user_serializer = UserSerializer(user)
-#     profile_serializer = ProfileSerializer(user.profile)
-#     return Response({
-#         'user': user_serializer.data,
-#         'profile': profile_serializer.data
-#     })
+class ProfileView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserAndProfileSerializer
+    permission_classes = [AllowAny]
+    
+class ProfileOne(generics.RetrieveAPIView):
+    serializer_class = UserAndProfileSerializer
+    queryset = User.objects.all()
+    lookup_field = 'username' 
+    permission_classes = [AllowAny]
+    
+class ProfileUpdate(generics.UpdateAPIView):
+    serializer_class = ProfileUpdateSerializer
+    queryset = Profile.objects.all()
+    lookup_field = 'user_id'
+    permission_classes = [AllowAny]

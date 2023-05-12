@@ -56,7 +56,34 @@ class TokenSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('id', 'status')
+        fields = ('id', 'user', 'status', 'about', 'photo')
+
+class UserAndProfileSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='profile.status')
+    about = serializers.CharField(source='profile.about')
+    photo = serializers.URLField(source='profile.photo')
+    
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'status',  'about', 'photo')
+        
+    def get_status(self, obj):
+        try:
+            profile = Profile.objects.get(user=obj)
+            return profile.status
+        except Profile.DoesNotExist:
+            return ""
+        
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('photo', 'about')
+
+    def update(self, instance, validated_data):
+        instance.photo = validated_data.get('photo', instance.photo)
+        instance.about = validated_data.get('about', instance.about)
+        instance.save()
+        return instance
 
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:

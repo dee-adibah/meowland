@@ -23,7 +23,9 @@ const Navbar = () => {
       <div className='pml__navbar-sign'>
         {user ? (
           <div className='pml__navbar-sign'>
-            <p>{user.username}</p>
+            <p>
+              <a href='/profile'>{user.username}</a>
+            </p>
             <button type='button' onClick={logoutUser}>
               Logout
             </button>
@@ -67,7 +69,7 @@ const Navbar = () => {
               {user ? (
                 <div className='pml__navbar-menu_container-links'>
                   <p>
-                    <a>{user.username}</a>
+                    <a href='/profile'>{user.username}</a>
                   </p>
                   <button type='button' onClick={logoutUser}>
                     Logout

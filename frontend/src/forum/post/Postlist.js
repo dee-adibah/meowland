@@ -57,9 +57,12 @@ const Postlist = () => {
       method: 'DELETE',
     })
       .then((res) => {
-        res.json();
+        console.log('res:', res);
         alert('Post deleted successfully');
         navigate(0);
+      })
+      .then(() => {
+        setPosts(posts.filter((post) => post.id !== id));
       })
       .catch((err) => console.error({error: err}));
   };
@@ -73,7 +76,7 @@ const Postlist = () => {
               <Box className={classes.postUsername} mb={1}>
                 <AccountCircleIcon name='user' />
                 <Typography variant='subtitle2' component='span'>
-                  {post.creator}
+                  {post.creator.username}
                 </Typography>
                 <Typography
                   variant='subtitle2'

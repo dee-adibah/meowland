@@ -55,14 +55,17 @@ const Threadlist = () => {
       .catch((error) => console.error('Error fetching threads:', error));
   }, [id]);
 
-  const deleteThread = (id) => {
-    fetch(`http://localhost:8000/api/threads/delete/${id}`, {
+  const deleteThread = (threadid) => {
+    fetch(`http://localhost:8000/api/threads/delete/${threadid}`, {
       method: 'DELETE',
     })
       .then((res) => {
-        res.json();
+        console.log('res:', res);
         alert('Thread deleted successfully');
         navigate(0);
+      })
+      .then(() => {
+        setThreads(threads.filter((thread) => thread.id !== id));
       })
       .catch((err) => console.error({error: err}));
   };
@@ -83,10 +86,11 @@ const Threadlist = () => {
 
   const checkUser = getData.find((data) => data.username === user.username);
   const userStatus = checkUser?.status;
+  //console.log('thread', threads);
 
   return (
     <div className={classes.root}>
-      {threads.map((thread) => (
+      {Object.values(threads).map((thread) => (
         <Paper className={classes.paper} key={thread.id}>
           <Grid container wrap='nowrap' spacing={2}>
             <Grid item>
@@ -102,11 +106,13 @@ const Threadlist = () => {
                 <Link to={`/thread/${thread.id}`}>
                   <Typography variant='h6'>{thread.thread}</Typography>
                 </Link>
-                <Typography
+                {/* <Typography
                   variant='subtitle2'
                   color='textSecondary'
                   component='span'
-                ></Typography>
+                >
+                  
+                </Typography> */}
               </Box>
               <Typography variant='body1'>{thread.content}</Typography>
               <Divider />
@@ -122,6 +128,12 @@ const Threadlist = () => {
         </Paper>
       ))}
     </div>
+
+    // <div>
+    //   {threads.map((thread) => (
+    //     <Thread key={thread.id} thread={thread} handleDelete={handleDelete} />
+    //   ))}
+    // </div>
   );
 };
 

@@ -62,9 +62,12 @@ const Postlist = () => {
       method: 'DELETE',
     })
       .then((res) => {
-        res.json();
+        console.log('res:', res);
         alert('Post deleted successfully');
         navigate(0);
+      })
+      .then(() => {
+        setPosts(posts.filter((post) => post.id !== id));
       })
       .catch((err) => console.error({error: err}));
   };

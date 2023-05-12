@@ -52,7 +52,6 @@ const Topiclist = () => {
       );
   }, [activePage]);
 
-  //console.log('ac:', activePage);
   const displayedTopics = topics.slice((activePage - 1) * 8, activePage * 8);
 
   const deleteTopic = (id) => {
@@ -60,9 +59,12 @@ const Topiclist = () => {
       method: 'DELETE',
     })
       .then((res) => {
-        res.json();
+        console.log('res:', res);
         alert('Topic deleted successfully');
         navigate(0);
+      })
+      .then(() => {
+        setTopics(topics.filter((topic) => topic.id !== id));
       })
       .catch((err) => console.error({error: err}));
   };

@@ -47,7 +47,7 @@ const Threadlist = () => {
   const navigate = useNavigate();
 
   //for admin/user control
-  const {user} = useContext(UserContext);
+  const {user = {}} = useContext(UserContext);
   const [getData, setGetData] = useState([]);
 
   useEffect(() => {
@@ -90,7 +90,8 @@ const Threadlist = () => {
       );
   }, []);
 
-  const checkUser = getData.find((data) => data.username === user.username);
+  const checkUser =
+    user && getData.find((data) => data.username === user.username);
   const userStatus = checkUser?.status;
   //console.log('thread', threads);
 

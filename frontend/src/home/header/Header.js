@@ -16,11 +16,10 @@ const Header = () => {
               community is here to support you and provide a wealth of knowledge
               and resources on all things feline. <br />
               Join discussions about cat health and wellness, behavior and
-              training, food and nutrition, and much more. Share photos and
-              videos of your beloved cats, and get feedback and advice from
-              fellow community members. We believe that every cat is unique and
-              deserves the best care and attention, and our community is
-              dedicated to helping you provide that.
+              training, food and nutrition, and much more. Get feedback and
+              advice from fellow community members. We believe that every cat is
+              unique and deserves the best care and attention, and our community
+              is dedicated to helping you provide that.
               <br />
               Our forum is a safe and friendly space, where respect and kindness
               are paramount. We encourage open and honest discussions, but ask

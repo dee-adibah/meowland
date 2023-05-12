@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams, Link, useNavigate} from 'react-router-dom';
 import {
   Grid,
@@ -12,6 +12,7 @@ import {
 import {makeStyles} from '@material-ui/core/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Richeditor from '../richeditor/Richeditor';
+import UserContext from '../../utils/UserContext.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,10 @@ const Postlist = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
+  //for admin/user control
+  const {user} = useContext(UserContext);
+  const [getData, setGetData] = useState([]);
+
   useEffect(() => {
     fetch(`http://localhost:8000/api/posts/${id}`)
       .then((data) => data.json())
@@ -64,6 +69,23 @@ const Postlist = () => {
       .catch((err) => console.error({error: err}));
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/profile/`)
+      .then(
+        (data) => data.json(),
+        (err) => console.log(err)
+      )
+      .then(
+        (parsedData) => {
+          setGetData(parsedData);
+        },
+        (err) => console.log(err)
+      );
+  }, []);
+
+  const checkUser = getData.find((data) => data.username === user.username);
+  const userStatus = checkUser?.status;
+
   return (
     <div className={classes.root}>
       {posts.map((post) => (
@@ -86,13 +108,17 @@ const Postlist = () => {
               <Typography variant='body1'>{post.content}</Typography>
               <Divider />
               <Box mt={1}>
-                <Button
-                  className={classes.button}
-                  variant='contained'
-                  onClick={() => deletePost(post.id)}
-                >
-                  Delete Post
-                </Button>
+                {user &&
+                  (user.username === post.username ||
+                    userStatus === 'admin') && (
+                    <Button
+                      className={classes.button}
+                      variant='contained'
+                      onClick={() => deletePost(post.id)}
+                    >
+                      Delete Post
+                    </Button>
+                  )}
               </Box>
             </Grid>
           </Grid>

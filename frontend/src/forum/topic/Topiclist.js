@@ -5,9 +5,9 @@ import {
   Box,
   IconButton,
   Pagination,
-  Paper,
+  //Paper,
   Typography,
-  Button,
+  //Button,
   List,
   ListItem,
   ListItemAvatar,
@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+//import EditIcon from '@mui/icons-material/Edit';
 import CreateTopic from './CreateTopic.js';
 import UserContext from '../../utils/UserContext.js';
 
@@ -31,7 +31,7 @@ const Topiclist = () => {
 
   const navigate = useNavigate();
 
-  const {user} = useContext(UserContext);
+  const {user = {}} = useContext(UserContext);
   //console.log('profile', id);
   useEffect(() => {
     const startIndex = (activePage - 1) * 8;
@@ -109,7 +109,8 @@ const Topiclist = () => {
       );
   }, []);
 
-  const checkUser = getData.find((data) => data.username === user.username);
+  const checkUser =
+    user && getData.find((data) => data.username === user.username);
   const userStatus = checkUser?.status;
   console.log('d', checkUser);
   //console.log('topics:', check, match);

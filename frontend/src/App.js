@@ -8,7 +8,8 @@ import Threadlist from './forum/thread/Threadlist.js';
 import Postlist from './forum/post/Postlist.js';
 import RegLog from './account/RegLog.js';
 import Profile from './account/Profile.js';
-import {AuthProvider} from './utils/UserContext';
+import {AuthProvider} from './utils/UserContext.js';
+import Breed from './breed/Breed.js';
 
 function App({id}) {
   return (
@@ -21,7 +22,7 @@ function App({id}) {
             <Route path='/topic/:id' element={<Threadlist topicTitle={id} />} />
             <Route path='/thread/:id' element={<Postlist threadTitle={id} />} />
             {/* <Route path='/post/:id' element={} /> */}
-            {/* <Route path='/breed' element={<Breed />} /> */}
+            <Route path='/breed' element={<Breed />} />
             <Route path='/sign' element={<RegLog />} />
             <Route path='/profile' element={<Profile />} />
           </Route>

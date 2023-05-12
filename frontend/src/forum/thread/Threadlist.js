@@ -150,12 +150,6 @@ const Threadlist = () => {
         </Paper>
       ))}
     </div>
-
-    // <div>
-    //   {threads.map((thread) => (
-    //     <Thread key={thread.id} thread={thread} handleDelete={handleDelete} />
-    //   ))}
-    // </div>
   );
 };
 

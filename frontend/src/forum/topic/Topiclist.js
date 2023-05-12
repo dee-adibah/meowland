@@ -111,7 +111,7 @@ const Topiclist = () => {
 
   const checkUser = getData.find((data) => data.username === user.username);
   const userStatus = checkUser?.status;
-
+  console.log('d', checkUser);
   //console.log('topics:', check, match);
 
   return (

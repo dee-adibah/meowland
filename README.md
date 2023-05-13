@@ -70,7 +70,7 @@ For the Backend
 
 ## TODO
 
--   Tidy up the thread and post page (also add pagination)
+-   Tidy up the and improve the layout page (also add pagination)
 -   User able to edit their thread and post
 -   Adding like button on the thread and post
 -   Search function

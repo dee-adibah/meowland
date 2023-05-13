@@ -2,7 +2,10 @@
 
 An online discussion forum for the cat community to interact and share experience among them using Django and React.
 
+## Demo App
 <img width="1216" alt="landingPage" src="https://github.com/dee-adibah/purrmeowland/assets/115356158/49a61c11-61ed-49a7-98a5-54ddad8d1f92">
+
+![Animated GIF](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmY2MGZlMjNmNGExMzNmZDhmNzBlNWFmOGY[…]bnRlcm5hbF9naWZzX2dpZklkJmN0PWc/GxbL4z9revipEOIAHS/giphy.gif)
 
 ## Tech Stack
 

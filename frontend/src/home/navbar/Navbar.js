@@ -31,9 +31,11 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <button type='button'>
-            <a href='/sign'>Login/Register</a>
-          </button>
+          <div className='pml__navbar-sign'>
+            <button type='button'>
+              <a href='/sign'>Login/Register</a>
+            </button>
+          </div>
         )}
       </div>
       <div className='pml__navbar-menu'>

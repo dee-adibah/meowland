@@ -14,6 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Richeditor from '../richeditor/Richeditor';
 import UserContext from '../../utils/UserContext.js';
 import CreatePost from './CreatePost';
+import './postlist.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,62 +93,65 @@ const Postlist = () => {
   const userStatus = checkUser?.status;
 
   return (
-    <div className={classes.root}>
-      {posts.length > 0 && (
-        <Typography
-          sx={{
-            mt: 2,
-            mb: 1,
-            ml: 2,
-            textAlign: 'center',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-          variant='h4'
-          component='div'
-        >
-          {posts[0].thread.thread}
-        </Typography>
-      )}
-      {user && <CreatePost posts={posts} />}
-      {posts.map((post) => (
-        <Paper className={classes.paper} key={post.id}>
-          <Grid container wrap='nowrap' spacing={2}>
-            <Grid item xs={12}>
-              <Box className={classes.postUsername} mb={1}>
-                <AccountCircleIcon name='user' />
-                <Typography variant='subtitle2' component='span'>
-                  {post.creator.username}
-                </Typography>
-                <Typography
-                  variant='subtitle2'
-                  color='textSecondary'
-                  component='span'
-                >
-                  {` — ${post.created}`}
-                </Typography>
-              </Box>
-              <Typography variant='body1'>{post.content}</Typography>
-              <Divider />
-              <Box mt={1}>
-                {user &&
-                  (user.username === post.creator.username ||
-                    userStatus === 'admin') && (
-                    <Button
-                      className={classes.button}
-                      variant='contained'
-                      onClick={() => deletePost(post.id)}
-                    >
-                      Delete Post
-                    </Button>
-                  )}
-              </Box>
+    <Box sx={{flexGrow: 1}}>
+      <div className={classes.root}>
+        {posts.length > 0 && (
+          <Typography
+            sx={{
+              mt: 2,
+              mb: 1,
+              ml: 2,
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            variant='h4'
+            component='div'
+            className='post-status'
+          >
+            Title: {posts[0].thread.thread}
+          </Typography>
+        )}
+        {user && <CreatePost posts={posts} />}
+        {posts.map((post) => (
+          <Paper className={classes.paper} key={post.id}>
+            <Grid container wrap='nowrap' spacing={2}>
+              <Grid item xs={12}>
+                <Box className={classes.postUsername} mb={1}>
+                  <AccountCircleIcon name='user' />
+                  <Typography variant='subtitle2' component='span'>
+                    {post.creator.username}
+                  </Typography>
+                  <Typography
+                    variant='subtitle2'
+                    color='textSecondary'
+                    component='span'
+                  >
+                    {` — ${post.created}`}
+                  </Typography>
+                </Box>
+                <Typography variant='body1'>{post.content}</Typography>
+                <Divider />
+                <Box mt={1}>
+                  {user &&
+                    (user.username === post.creator.username ||
+                      userStatus === 'admin') && (
+                      <Button
+                        className={classes.button}
+                        variant='contained'
+                        onClick={() => deletePost(post.id)}
+                      >
+                        Delete Post
+                      </Button>
+                    )}
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      ))}
-      {/* <Richeditor /> */}
-    </div>
+          </Paper>
+        ))}
+        {/* <Richeditor /> */}
+      </div>
+    </Box>
   );
 };
 

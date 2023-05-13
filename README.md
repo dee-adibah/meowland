@@ -74,6 +74,8 @@ For the Backend
 -   User able to edit their thread and post
 -   Adding like button on the thread and post
 -   Search function
+-   Change the create box form with font features
+-   Able to add photo in create post
 
 ## Reference
 

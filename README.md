@@ -65,7 +65,7 @@ For the Backend
 ## Difficulties
 
 -   User related
--   Understanding how the serializers work
+-   Understanding how the serializers work and getting the API route to work
 -   Being focus on the plan made
 
 ## TODO

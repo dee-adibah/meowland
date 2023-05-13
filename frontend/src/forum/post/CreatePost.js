@@ -64,7 +64,7 @@ const CreatePost = ({posts}) => {
     }
     if (response.status === 201) {
       console.log(`New thread created:`, data);
-      alert('Thread successfully created');
+      alert('Post successfully created');
       navigate(0);
     } else {
       alert('Something went wrong!');

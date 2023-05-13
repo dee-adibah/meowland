@@ -89,6 +89,7 @@ export const AuthProvider = ({children}) => {
 
     if (response.status === 201) {
       alert('please login to proceed');
+      navigate(0);
     } else {
       alert('Something went wrong!');
     }
